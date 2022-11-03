@@ -8,11 +8,32 @@ multiples of 4 renamed to be "order(n-3)"
 and every other number is renamed to be "order(n+1)"
 '''
 
+import os
+import time
+from PIL import Image as im
 
-for i in range(0, 24):
-    i = i + 1
-    if (i & 3) == 0:
-        print("Yes,", i, "is a multiple of 4")
+
+#Split file name and file extension
+
+#Defining variables
+Dictfn = {}
+
+for f in os.listdir('.'):
+    if f.endswith('.jpg'):
+        i = im.open(f)
+        fn, fext = os.path.splitext(f)
+        Dictfn.update({int(fn): f})
     else:
-        print("No,", i,"is not a multiple of 4")
+        pass
+
+time.sleep(10) #the program needs a second to process the last file before moving on 
+
+#Math to get the correct order values for the image then rename
+for fn, f in Dictfn.items():
+    if (fn & 3) == 0:
+        n = fn - 3
+    else:
+        n = fn + 1
+    os.rename("C:\\Reorder Images Program\\" + f,
+              "C:\\Reorder Images Program\\Reordered Images\\" + str(n) + 'RO' + str(fn) + '.jpg')
         
